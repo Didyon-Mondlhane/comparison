@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparações</title>
+    <link rel="stylesheet" th:href="@{../static/css/main.css}">
+    <link rel="stylesheet" th:href="@{../static/css/dashboard.css}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="sidebar-content">
+                <h2 class="text-center mb-20">
+                    <span class="sidebar-title">Protecção Infantil</span>
+                </h2>
+                <ul class="sidebar-nav">
+                    <li><a th:href="@{/countries}"><span>Países</span></a></li>
+                    <li><a th:href="@{/activities}"> <span>Actividades Proibidas</span></a></li>
+                    <li><a th:href="@{/comparison}"></i> <span>Comparações</span></a></li>
+                    <!-- <li><a th:href="@{/comparison/new}"><span>Nova Comparação</span></a></li> -->
+                </ul>
+            </div>
+        </aside>
+                <!-- Main Content -->
+                <main class="main-content">
+                    <div class="container">
+            <div class="header">
+                <h1>Comparações</h1>
+                <a th:href="@{/comparison/compare}" class="btn btn-success">Nova Comparação</a>
+            </div>
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Título</th>
+                                        <th>Resumo</th>
+                                        <th>Acções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="comparison : ${comparisons}">
+                                        <td th:text="${comparison.id}">1</td>
+                                        <td th:text="${comparison.title}">Título</td>
+                                        <td th:text="${comparison.summary}">Resumo da comparação</td>
+                                        <td>
+                                            <div class="d-flex" style="gap: 5px;">
+                                                <a th:href="@{/comparison/{id}/edit(id=${comparison.id})}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form th:action="@{/comparison/{id}/delete(id=${comparison.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div th:if="${#lists.isEmpty(comparisons)}" class="text-center mt-4">
+                                <p>Nenhuma comparação encontrada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+        </main>
+    </div>
+
+    <script th:src="@{../static/js/script.js}"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+            }
+        });
+    </script>
+</body>
+</html>

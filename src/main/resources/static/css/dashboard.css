@@ -1,0 +1,268 @@
+/* Dashboard Specific Styles */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    transition: var(--transition);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card h3 {
+    color: var(--dark-color);
+margin-bottom: 15px;
+font-size: 1.2rem;
+}
+
+.dashboard-card .stat {
+font-size: 2rem;
+font-weight: bold;
+color: var(--primary-color);
+}
+
+.dashboard-card .description {
+color: #666;
+font-size: 0.9rem;
+}
+
+/* Comparison Results Styles */
+.comparison-results {
+background: #f9f9f9;
+border-left: 4px solid var(--primary-color);
+padding: 20px;
+margin: 20px 0;
+}
+
+.comparison-results h4 {
+color: var(--dark-color);
+margin-bottom: 10px;
+}
+
+.comparison-item {
+display: flex;
+justify-content: space-between;
+padding: 10px 0;
+border-bottom: 1px solid #eee;
+}
+
+.comparison-item:last-child {
+border-bottom: none;
+}
+
+.comparison-label {
+font-weight: 600;
+color: var(--dark-color);
+}
+
+.comparison-value {
+text-align: right;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+list-style: none;
+margin-top: 30px;
+}
+
+.sidebar-nav li {
+margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+display: flex;
+align-items: center;
+color: white;
+text-decoration: none;
+padding: 10px;
+border-radius: var(--border-radius);
+transition: var(--transition);
+}
+
+.sidebar-nav a:hover {
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav i {
+margin-right: 10px;
+font-size: 1.2rem;
+}
+
+.sidebar.collapsed .sidebar-nav span {
+display: none;
+}
+
+.sidebar.collapsed .sidebar-nav i {
+margin-right: 0;
+font-size: 1.5rem;
+}
+
+/* Filter Panel */
+.filter-panel {
+background: white;
+padding: 20px;
+border-radius: var(--border-radius);
+box-shadow: var(--box-shadow);
+margin-bottom: 20px;
+}
+
+.filter-panel h3 {
+margin-bottom: 15px;
+color: var(--dark-color);
+}
+
+.filter-group {
+margin-bottom: 15px;
+}
+
+.filter-group label {
+display: block;
+margin-bottom: 5px;
+font-weight: 500;
+}
+
+/* Comments Section */
+.comment {
+background: #f9f9f9;
+border-left: 3px solid var(--primary-color);
+padding: 15px;
+margin-bottom: 15px;
+border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.comment-header {
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+font-size: 0.9rem;
+color: #666;
+}
+
+.comment-actions {
+display: flex;
+gap: 10px;
+}
+
+.comment-form {
+margin-top: 30px;
+}
+
+.comment-form textarea {
+min-height: 100px;
+}
+
+/* Responsive Tables */
+.table-responsive {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+/* Chart Container */
+.chart-container {
+position: relative;
+height: 400px;
+margin-bottom: 30px;
+}
+
+/* Badges */
+.badge {
+display: inline-block;
+padding: 3px 8px;
+font-size: 0.75rem;
+font-weight: 600;
+line-height: 1;
+color: white;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+border-radius: 10px;
+}
+
+.badge-primary {
+background-color: var(--primary-color);
+}
+
+.badge-success {
+background-color: var(--success-color);
+}
+
+.badge-warning {
+background-color: var(--warning-color);
+}
+
+.badge-danger {
+background-color: var(--danger-color);
+}
+
+/* Tabs */
+.tabs {
+display: flex;
+border-bottom: 1px solid #ddd;
+margin-bottom: 20px;
+}
+
+.tab {
+padding: 10px 20px;
+cursor: pointer;
+border-bottom: 3px solid transparent;
+transition: var(--transition);
+}
+
+.tab.active {
+border-bottom-color: var(--primary-color);
+color: var(--primary-color);
+font-weight: 600;
+}
+
+.tab-content {
+display: none;
+}
+
+.tab-content.active {
+display: block;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+body {
+background-color: #121212;
+color: #e0e0e0;
+}
+
+.main-content {
+    background-color: #1e1e1e;
+}
+
+.card, .dashboard-card, .filter-panel {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.table th, .table td {
+    border-color: #444;
+}
+
+.table tr:hover {
+    background-color: #333;
+}
+
+.form-control {
+    background-color: #333;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.comment {
+    background-color: #252525;
+}
+}

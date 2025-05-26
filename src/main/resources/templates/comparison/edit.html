@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Comparação</title>
+    <link rel="stylesheet" th:href="@{../../static/css/main.css}">
+    <link rel="stylesheet" th:href="@{../../static/css/dashboard.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="sidebar-content">
+                <h2 class="text-center mb-20">
+                    <span class="sidebar-title">Protecção Infantil</span>
+                </h2>
+                <ul class="sidebar-nav">
+                    <li><a th:href="@{../countries}"><span>Países</span></a></li>
+                    <li><a th:href="@{../activities}"><span>Actividades Proibidas</span></a></li>
+                    <li><a th:href="@{../comparison}"><span>Comparações</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <header class="header">
+                    <h1>Editar Comparação</h1>
+                    <div class="user-menu">
+                        <span>DJM</span>
+                    </div>
+                </header>
+
+                <!-- Formulário de edição -->
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/comparison/{id}/edit(id=${comparison.id})}" th:object="${comparison}" method="post">
+                            <div class="form-group">
+                                <label for="title">Título</label>
+                                <input type="text" id="title" th:field="*{title}" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="summary">Resumo</label>
+                                <textarea id="summary" th:field="*{summary}" class="form-control" rows="5" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="details">Detalhes</label>
+                                <textarea id="details" th:field="*{details}" class="form-control" rows="8"></textarea>
+                            </div>
+                            <div class="text-right mt-20">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Atualizar
+                                </button>
+                                <a th:href="@{/comparison}" class="btn btn-warning">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) sidebar.classList.add('collapsed');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades Proibidas</title>
+    <link rel="stylesheet" th:href="@{../static/css/main.css}">
+    <link rel="stylesheet" th:href="@{../static/css/dashboard.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="sidebar-content">
+                <h2 class="text-center mb-20">
+                    <span class="sidebar-title">Protecção Infantil</span>
+                </h2>
+                <ul class="sidebar-nav">
+                    <li><a th:href="@{/countries}"><span>Países</span></a></li>
+                    <li><a th:href="@{/activities}"> <span>Actividades Proibidas</span></a></li>
+                    <li><a th:href="@{/comparison}"></i> <span>Comparações</span></a></li>
+                    <!-- <li><a th:href="@{/comparison/new}"><span>Nova Comparação</span></a></li> -->
+                </ul>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <header class="header">
+                    <h1>Actividades Proibidas</h1>
+                    <div class="user-menu">
+                        <span>DJM</span>
+                    </div>
+                </header>
+                <!-- Filter Panel -->
+                <div class="filter-panel">
+                    <h3>Filtrar Actividades</h3>
+                    <form th:action="@{/activities}" method="get">
+                        <div class="dashboard-grid">
+                            <div class="filter-group">
+                                <label for="category">Categoria</label>
+                                <select id="category" name="category" class="form-control">
+                                    <option value="">Todas</option>
+                                    <option th:each="category : ${categories}" 
+                                            th:value="${category}"
+                                            th:text="${category}"
+                                            th:selected="${param.category != null && param.category == category}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="severity">Gravidade</label>
+                                <select id="severity" name="severity" class="form-control">
+                                    <option value="">Todas</option>
+                                    <option th:each="severity : ${severities}" 
+                                            th:value="${severity}"
+                                            th:text="${severity}"
+                                            th:selected="${param.severity != null && param.severity == severity}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-right mt-20">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                            <a th:href="@{/activities}" class="btn btn-warning">
+                                <i class="fas fa-times"></i> Limpar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <!-- Activities List -->
+                <div class="card">
+                    <div class="card-header d-flex justify-between align-center">
+                        <span>Lista de Actividades Proibidas</span>
+                        <a th:href="@{/activities/new}" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Nova Actividade
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Gravidade</th>
+                                        <th>Descrição</th>
+                                        <th>Acções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="activity : ${activities}">
+                                        <td th:text="${activity.name}">Nome</td>
+                                        <td th:text="${activity.category}">Categoria</td>
+                                        <td th:text="${activity.severity}">Gravidade</td>
+                                        <td th:text="${activity.description}">Descrição</td>
+                                        <td>
+                                            <div class="d-flex" style="gap: 5px;">
+                                                <a th:href="@{/activities/{id}/edit(id=${activity.id})}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form th:action="@{/activities/{id}/delete(id=${activity.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+            }
+        });
+    </script>
+</body>
+</html>
